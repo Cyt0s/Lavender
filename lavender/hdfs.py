@@ -1,12 +1,11 @@
 
 
 class HDFS(object):
-    def __init__(self,sc):
+    def __init__(self, sc, namenode_uri):
         self.URI = sc._gateway.jvm.java.net.URI
         self.Path = sc._gateway.jvm.org.apache.hadoop.fs.Path
         self.FileSystem = sc._gateway.jvm.org.apache.hadoop.fs.FileSystem
-        self.fs = self.FileSystem.get(self.URI("hdfs://somehost:8020"), sc._jsc.hadoopConfiguration())
-
+        self.fs = self.FileSystem.get(self.URI(namenode_uri), sc._jsc.hadoopConfiguration())
 
 
     def list_dir(self, dir_to_list):
@@ -27,8 +26,3 @@ class HDFS(object):
 
     def move(self, src_dir, dest_dir):
         return self.fs.rename(self.Path(src_dir), self.Path(dest_dir))
-
-
-    def copy_dir_content(self, dir_to_copy_from, destination_dir):
-        for pathStatus in self.list_dir(dir_to_copy_from):
-            self.move(pathStatus.getPath(), destination_dir)
