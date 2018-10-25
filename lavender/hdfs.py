@@ -26,3 +26,6 @@ class HDFS(object):
 
     def move(self, src_dir, dest_dir):
         return self.fs.rename(self.Path(src_dir), self.Path(dest_dir))
+
+    def get_dir_size(self,dir_to_sample):
+        return self.fs.getFileStatus(self.Path(dir_to_sample)).getBlockSize()
