@@ -15,4 +15,4 @@ class FileWorker(object):
         return self.FileUtil.copy(self.fs, self.Path(src_dir), self.fs, self.Path(dst_dir), False, self.conf)
 
     def rename(self, src_name_dir, dst_name_dir):
-        return self.fs.rename(src_name_dir, dst_name_dir)
+        return self.fs.rename(self.Path(src_name_dir), self.Path(dst_name_dir))
